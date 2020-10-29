@@ -33,7 +33,6 @@ cuadros = [
 
 
 def ocultar_todos_los_cuadros():
-    print("Ocultando cuadros")
     for fila in cuadros:
         for cuadro in fila:
             cuadro.mostrar = False
@@ -145,7 +144,6 @@ while True:
                     x1 = x
                     y1 = y
                     cuadros[y1][x1].mostrar = True
-                    print("OK tienes una, busca su par")
                 else:
                     # En caso de que ya hubiera una clickeada anteriormente y estemos buscando el par, comparamos...
                     x2 = x
@@ -155,7 +153,6 @@ while True:
                     cuadro2 = cuadros[y2][x2]
                     # Si coinciden, entonces a ambas las ponemos en descubiertas:
                     if cuadro1.fuente_imagen == cuadro2.fuente_imagen:
-                        print("Sí era! le diste")
                         cuadros[y1][x1].descubierta = True
                         cuadros[y2][x2].descubierta = True
                         x1 = None
@@ -166,15 +163,11 @@ while True:
                         pygame.mixer.Sound.play(sonido_fracaso)
                         # Si no, tenemos que ocultarlas en el plazo de 1 segundo. Así que establecemos la bandera
                         ultimos_segundos = int(time.time())
-                        print("No era, vamos a ocultarlas en 3 segundos")
-                        print(ultimos_segundos)
                         puede_jugar = False
                 comprobar_si_gana()
 
     ahora = int(time.time())
-    if ultimos_segundos is not None and ahora - ultimos_segundos >= 2:
-        print("Se oculta")
-        print(ahora)
+    if ultimos_segundos is not None and ahora - ultimos_segundos >= SEGUNDOS_MOSTRAR_PIEZA:
         cuadros[y1][x1].mostrar = False
         cuadros[y2][x2].mostrar = False
         x1 = None
