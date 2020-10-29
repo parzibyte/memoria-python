@@ -48,10 +48,10 @@ class Cuadro:
 Todo el juego; que al final es un arreglo de objetos
 """
 cuadros = [
-    [Cuadro("conejo.jpg"), Cuadro("conejo.jpg"), Cuadro("leon.jpg"), Cuadro("leon.jpg")],
-    [Cuadro("oveja.jpg"), Cuadro("oveja.jpg"), Cuadro("perro.jpg"), Cuadro("perro.jpg")],
-    [Cuadro("gato.jpg"), Cuadro("gato.jpg"), Cuadro("cabra.jpg"), Cuadro("cabra.jpg")],
-    [Cuadro("cocodrilo.jpg"), Cuadro("cocodrilo.jpg"), Cuadro("huron.jpg"), Cuadro("huron.jpg")],
+    [Cuadro("durazno.jpg"), Cuadro("durazno.jpg"), Cuadro("manzana.jpg"), Cuadro("manzana.jpg")],
+    [Cuadro("naranja.jpg"), Cuadro("naranja.jpg"), Cuadro("pera.jpg"), Cuadro("pera.jpg")],
+    [Cuadro("piña.jpg"), Cuadro("piña.jpg"), Cuadro("platano.jpg"), Cuadro("platano.jpg")],
+    [Cuadro("sandia.jpg"), Cuadro("sandia.jpg"), Cuadro("uvas.jpg"), Cuadro("uvas.jpg")],
 ]
 
 # Colores
@@ -76,7 +76,7 @@ fuente = pygame.font.SysFont("Arial", tamanio_fuente)
 xFuente = int((anchura_boton / 2) - (tamanio_fuente / 2))
 yFuente = int(altura_pantalla - altura_boton)
 
-# El botón, que al final de es un rectángulo
+# El botón, que al final es un rectángulo
 boton = pygame.Rect(0, altura_pantalla - altura_boton, anchura_boton, altura_pantalla)
 
 # Banderas
