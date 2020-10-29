@@ -112,8 +112,9 @@ y2 = None
 
 color_blanco = (255, 255, 255)
 color_negro = (0, 0, 0)
+color_gris = (206, 206, 206)
 tamanio_fuente = 20
-fuente = pygame.font.SysFont("Arial", tamanio_fuente).render("Iniciar juego", True, color_blanco)
+fuente = pygame.font.SysFont("Arial", tamanio_fuente)
 xFuente = int((ANCHURA_BOTON / 2) - (tamanio_fuente / 2))
 yFuente = int(altura_pantalla - ALTURA_BOTON)
 while True:
@@ -197,8 +198,11 @@ while True:
         y += MEDIDA_CUADRADO
 
     # También dibujamos el botón
-    pygame.draw.rect(pantalla_juego, color_negro, boton)
-
-    pantalla_juego.blit(fuente, (xFuente, yFuente))
+    if juego_iniciado:
+        pygame.draw.rect(pantalla_juego, color_blanco, boton)
+        pantalla_juego.blit(fuente.render("Iniciar juego", True, color_gris), (xFuente, yFuente))
+    else:
+        pygame.draw.rect(pantalla_juego, color_blanco, boton)
+        pantalla_juego.blit(fuente.render("Iniciar juego", True, color_negro), (xFuente, yFuente))
 
     pygame.display.update()
