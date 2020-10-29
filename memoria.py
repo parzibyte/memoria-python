@@ -6,6 +6,7 @@ import random
 
 pygame.init()
 pygame.font.init()
+pygame.mixer.init()
 NOMBRE_IMAGEN_OCULTA = "ocultar.png"
 MEDIDA_CUADRADO = 150
 SEGUNDOS_MOSTRAR_PIEZA = 1
@@ -32,9 +33,11 @@ cuadros = [
 
 
 def ocultar_todos_los_cuadros():
+    print("Ocultando cuadros")
     for fila in cuadros:
         for cuadro in fila:
             cuadro.mostrar = False
+            cuadro.descubierta = False
 
 
 def aleatorizar_cuadros():
@@ -49,16 +52,44 @@ def aleatorizar_cuadros():
             cuadros[y_aleatorio][x_aleatorio] = cuadro_temporal
 
 
+def comprobar_si_gana():
+    if gana():
+        pygame.mixer.Sound.play(sonido_exito)
+        reiniciar_juego()
+
+
+def gana():
+    for fila in cuadros:
+        for cuadro in fila:
+            if not cuadro.descubierta:
+                return False
+    return True
+
+
+def reiniciar_juego():
+    global juego_iniciado
+    juego_iniciado = False
+
+
 def iniciar_juego():
+    pygame.mixer.Sound.play(sonido_clic)
     global juego_iniciado
     # Aleatorizar 3 veces
     for i in range(3):
-        aleatorizar_cuadros()
-    # TODO: descomentar cuando se dejen de hacer pruebas
-    # ocultar_todos_los_cuadros()
+        # TODO: descomentar cuando se dejen de hacer pruebas
+        # aleatorizar_cuadros()
+        pass
+    ocultar_todos_los_cuadros()
+
+    # pygame.mixer.Channel(0).play(pygame.mixer.Sound("click.mpeg"))
     juego_iniciado = True
 
 
+sonido_fondo = pygame.mixer.Sound("fondo.wav")
+sonido_clic = pygame.mixer.Sound("clic.wav")
+sonido_exito = pygame.mixer.Sound("exito.wav")
+sonido_fracaso = pygame.mixer.Sound("fracaso.wav")
+pygame.mixer.Sound.play(sonido_fondo, -1)
 ALTURA_BOTON = 30
 anchura_pantalla = len(cuadros[0]) * MEDIDA_CUADRADO
 altura_pantalla = (len(cuadros) * MEDIDA_CUADRADO) + ALTURA_BOTON
@@ -94,14 +125,7 @@ while True:
             xx, yy = event.pos
             if boton.collidepoint(event.pos):
                 if not juego_iniciado:
-                    # Acá aleatorizar y ocultar...
                     iniciar_juego()
-                    # # TOdo: poner en función "reiniciar"
-                    # aleatorizar_cuadros()
-                    # ocultar_todos_los_cuadros()
-                    # for fila in cuadros:
-                    #     for cuadro in fila:
-                    #         cuadro.mostrar = False
 
             else:
                 # Si no hay juego iniciado, ignoramos el clic
@@ -123,12 +147,12 @@ while True:
                     print("OK tienes una, busca su par")
                 else:
                     # En caso de que ya hubiera una clickeada anteriormente y estemos buscando el par, comparamos...
-                    # Si coinciden, entonces a ambas las ponemos en descubiertas:
                     x2 = x
                     y2 = y
                     cuadros[y2][x2].mostrar = True
                     cuadro1 = cuadros[y1][x1]
                     cuadro2 = cuadros[y2][x2]
+                    # Si coinciden, entonces a ambas las ponemos en descubiertas:
                     if cuadro1.fuente_imagen == cuadro2.fuente_imagen:
                         print("Sí era! le diste")
                         cuadros[y1][x1].descubierta = True
@@ -138,11 +162,13 @@ while True:
                         y1 = None
                         y2 = None
                     else:
+                        pygame.mixer.Sound.play(sonido_fracaso)
                         # Si no, tenemos que ocultarlas en el plazo de 1 segundo. Así que establecemos la bandera
                         ultimos_segundos = int(time.time())
                         print("No era, vamos a ocultarlas en 3 segundos")
                         print(ultimos_segundos)
                         puede_jugar = False
+                comprobar_si_gana()
 
     ahora = int(time.time())
     if ultimos_segundos is not None and ahora - ultimos_segundos >= 2:
