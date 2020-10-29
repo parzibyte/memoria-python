@@ -18,10 +18,10 @@ Variables y configuraciones que vamos a usar a lo largo del programa
 altura_boton = 30  # El botón de abajo, para iniciar juego
 medida_cuadro = 150  # Medida de la imagen en pixeles
 # La parte trasera de cada tarjeta
-NOMBRE_IMAGEN_OCULTA = "ocultar.png"
-imagen_oculta = pygame.image.load(NOMBRE_IMAGEN_OCULTA)
+nombre_imagen_oculta = "ocultar.png"
+imagen_oculta = pygame.image.load(nombre_imagen_oculta)
 imagen_oculta = pygame.transform.scale(imagen_oculta, (medida_cuadro, medida_cuadro))
-SEGUNDOS_MOSTRAR_PIEZA = 1  # Segundos para ocultar la pieza si no es la correcta
+segundos_mostrar_pieza = 1  # Segundos para ocultar la pieza si no es la correcta
 """
 Una clase que representa el cuadro. El mismo tiene una imagen y puede estar
 descubierto (cuando ya lo han descubierto anteriormente y no es la tarjeta buscada actualmente)
@@ -34,6 +34,11 @@ class Cuadro:
     def __init__(self, fuente_imagen):
         self.mostrar = True
         self.descubierto = False
+        """
+        Una cosa es la fuente de la imagen (es decir, el nombre del archivo) y otra
+        la imagen lista para ser pintada por PyGame
+        La fuente la necesitamos para más tarde, comparar las tarjetas
+        """
         self.fuente_imagen = fuente_imagen
         imagen_real = pygame.image.load(fuente_imagen)
         self.imagen_real = pygame.transform.scale(imagen_real, (medida_cuadro, medida_cuadro))
@@ -227,7 +232,7 @@ while True:
     # Y aquí usamos la bandera del tiempo, de nuevo. Si los segundos actuales menos los segundos
     # en los que se empezó el ocultamiento son mayores a los segundos en los que se muestra la pieza, entonces
     # se ocultan las dos tarjetas y se reinician las banderas
-    if ultimos_segundos is not None and ahora - ultimos_segundos >= SEGUNDOS_MOSTRAR_PIEZA:
+    if ultimos_segundos is not None and ahora - ultimos_segundos >= segundos_mostrar_pieza:
         cuadros[y1][x1].mostrar = False
         cuadros[y2][x2].mostrar = False
         x1 = None
