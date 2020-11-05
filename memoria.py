@@ -16,12 +16,11 @@ Variables y configuraciones que vamos a usar a lo largo del programa
 """
 
 altura_boton = 30  # El botón de abajo, para iniciar juego
-medida_cuadro = 150  # Medida de la imagen en pixeles
+medida_cuadro = 200  # Medida de la imagen en pixeles
 # La parte trasera de cada tarjeta
-nombre_imagen_oculta = "ocultar.png"
+nombre_imagen_oculta = "assets/oculta.png"
 imagen_oculta = pygame.image.load(nombre_imagen_oculta)
-imagen_oculta = pygame.transform.scale(imagen_oculta, (medida_cuadro, medida_cuadro))
-segundos_mostrar_pieza = 1  # Segundos para ocultar la pieza si no es la correcta
+segundos_mostrar_pieza = 2  # Segundos para ocultar la pieza si no es la correcta
 """
 Una clase que representa el cuadro. El mismo tiene una imagen y puede estar
 descubierto (cuando ya lo han descubierto anteriormente y no es la tarjeta buscada actualmente)
@@ -40,30 +39,31 @@ class Cuadro:
         La fuente la necesitamos para más tarde, comparar las tarjetas
         """
         self.fuente_imagen = fuente_imagen
-        imagen_real = pygame.image.load(fuente_imagen)
-        self.imagen_real = pygame.transform.scale(imagen_real, (medida_cuadro, medida_cuadro))
+        self.imagen_real = pygame.image.load(fuente_imagen)
 
 
 """
 Todo el juego; que al final es un arreglo de objetos
 """
 cuadros = [
-    [Cuadro("durazno.jpg"), Cuadro("durazno.jpg"), Cuadro("manzana.jpg"), Cuadro("manzana.jpg")],
-    [Cuadro("naranja.jpg"), Cuadro("naranja.jpg"), Cuadro("pera.jpg"), Cuadro("pera.jpg")],
-    [Cuadro("piña.jpg"), Cuadro("piña.jpg"), Cuadro("platano.jpg"), Cuadro("platano.jpg")],
-    [Cuadro("sandia.jpg"), Cuadro("sandia.jpg"), Cuadro("uvas.jpg"), Cuadro("uvas.jpg")],
+    [Cuadro("assets/coco.png"), Cuadro("assets/coco.png"), Cuadro("assets/manzana.png"), Cuadro("assets/manzana.png")],
+    [Cuadro("assets/limón.png"), Cuadro("assets/limón.png"), Cuadro("assets/naranja.png"), Cuadro("assets/naranja.png")],
+    [Cuadro("assets/pera.png"), Cuadro("assets/pera.png"), Cuadro("assets/piña.png"), Cuadro("assets/piña.png")],
+    [Cuadro("assets/plátano.png"), Cuadro("assets/plátano.png"), Cuadro("assets/sandía.png"), Cuadro("assets/sandía.png")],
 ]
 
 # Colores
 color_blanco = (255, 255, 255)
 color_negro = (0, 0, 0)
 color_gris = (206, 206, 206)
+color_azul = (30, 136, 229)
 
 # Los sonidos
-sonido_fondo = pygame.mixer.Sound("fondo.wav")
-sonido_clic = pygame.mixer.Sound("clic.wav")
-sonido_exito = pygame.mixer.Sound("exito.wav")
-sonido_fracaso = pygame.mixer.Sound("fracaso.wav")
+sonido_fondo = pygame.mixer.Sound("assets/fondo.wav")
+sonido_clic = pygame.mixer.Sound("assets/clic.wav")
+sonido_exito = pygame.mixer.Sound("assets/ganador.wav")
+sonido_fracaso = pygame.mixer.Sound("assets/equivocado.wav")
+sonido_voltear = pygame.mixer.Sound("assets/voltear.wav")
 
 # Calculamos el tamaño de la pantalla en base al tamaño de los cuadrados
 anchura_pantalla = len(cuadros[0]) * medida_cuadro
@@ -152,7 +152,7 @@ Iniciamos la pantalla con las medidas previamente calculadas, colocamos título 
 reproducimos el sonido de fondo
 """
 pantalla_juego = pygame.display.set_mode((anchura_pantalla, altura_pantalla))
-pygame.display.set_caption('Memoria')
+pygame.display.set_caption('Memorama en Python - By Parzibyte')
 pygame.mixer.Sound.play(sonido_fondo, -1)  # El -1 indica un loop infinito
 # Ciclo infinito...
 while True:
@@ -203,6 +203,7 @@ while True:
                     x1 = x
                     y1 = y
                     cuadros[y1][x1].mostrar = True
+                    pygame.mixer.Sound.play(sonido_voltear)
                 else:
                     # En caso de que ya hubiera una clickeada anteriormente y estemos buscando el par, comparamos...
                     x2 = x
@@ -218,6 +219,7 @@ while True:
                         x2 = None
                         y1 = None
                         y2 = None
+                        pygame.mixer.Sound.play(sonido_clic)
                     else:
                         pygame.mixer.Sound.play(sonido_fracaso)
                         # Si no coinciden, tenemos que ocultarlas en el plazo de 1 segundo. Así que establecemos
@@ -270,8 +272,8 @@ while True:
         pygame.draw.rect(pantalla_juego, color_blanco, boton)
         pantalla_juego.blit(fuente.render("Iniciar juego", True, color_gris), (xFuente, yFuente))
     else:
-        pygame.draw.rect(pantalla_juego, color_blanco, boton)
-        pantalla_juego.blit(fuente.render("Iniciar juego", True, color_negro), (xFuente, yFuente))
+        pygame.draw.rect(pantalla_juego, color_azul, boton)
+        pantalla_juego.blit(fuente.render("Iniciar juego", True, color_blanco), (xFuente, yFuente))
 
     # Actualizamos la pantalla
     pygame.display.update()
