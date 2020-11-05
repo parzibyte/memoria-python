@@ -252,7 +252,7 @@ while True:
                         pygame.mixer.Sound.play(sonido_clic)
                     else:
                         pygame.mixer.Sound.play(sonido_fracaso)
-                        # Si no coinciden, tenemos que ocultarlas en el plazo de 1 segundo. Así que establecemos
+                        # Si no coinciden, tenemos que ocultarlas en el plazo de [segundos_mostrar_pieza] segundo(s). Así que establecemos
                         # la bandera. Como esto es un ciclo infinito y asíncrono, podemos usar el tiempo para saber
                         # cuándo fue el tiempo en el que se empezó a ocultar
                         ultimos_segundos = int(time.time())
