@@ -1,3 +1,26 @@
+"""
+
+  ____          _____               _ _           _       
+ |  _ \        |  __ \             (_) |         | |      
+ | |_) |_   _  | |__) |_ _ _ __ _____| |__  _   _| |_ ___ 
+ |  _ <| | | | |  ___/ _` | '__|_  / | '_ \| | | | __/ _ \
+ | |_) | |_| | | |  | (_| | |   / /| | |_) | |_| | ||  __/
+ |____/ \__, | |_|   \__,_|_|  /___|_|_.__/ \__, |\__\___|
+         __/ |                               __/ |        
+        |___/                               |___/         
+    
+____________________________________
+/ Si necesitas ayuda, contáctame en \
+\ https://parzibyte.me               /
+ ------------------------------------
+        \   ^__^
+         \  (oo)\_______
+            (__)\       )\/\
+                ||----w |
+                ||     ||
+Creado por Parzibyte (https://parzibyte.me). Este encabezado debe mantenerse intacto,
+excepto si este es un proyecto de un estudiante.
+"""
 import pygame
 import sys
 import math
@@ -46,10 +69,14 @@ class Cuadro:
 Todo el juego; que al final es un arreglo de objetos
 """
 cuadros = [
-    [Cuadro("assets/coco.png"), Cuadro("assets/coco.png"), Cuadro("assets/manzana.png"), Cuadro("assets/manzana.png")],
-    [Cuadro("assets/limón.png"), Cuadro("assets/limón.png"), Cuadro("assets/naranja.png"), Cuadro("assets/naranja.png")],
-    [Cuadro("assets/pera.png"), Cuadro("assets/pera.png"), Cuadro("assets/piña.png"), Cuadro("assets/piña.png")],
-    [Cuadro("assets/plátano.png"), Cuadro("assets/plátano.png"), Cuadro("assets/sandía.png"), Cuadro("assets/sandía.png")],
+    [Cuadro("assets/coco.png"), Cuadro("assets/coco.png"),
+     Cuadro("assets/manzana.png"), Cuadro("assets/manzana.png")],
+    [Cuadro("assets/limón.png"), Cuadro("assets/limón.png"),
+     Cuadro("assets/naranja.png"), Cuadro("assets/naranja.png")],
+    [Cuadro("assets/pera.png"), Cuadro("assets/pera.png"),
+     Cuadro("assets/piña.png"), Cuadro("assets/piña.png")],
+    [Cuadro("assets/plátano.png"), Cuadro("assets/plátano.png"),
+     Cuadro("assets/sandía.png"), Cuadro("assets/sandía.png")],
 ]
 
 # Colores
@@ -77,12 +104,15 @@ xFuente = int((anchura_boton / 2) - (tamanio_fuente / 2))
 yFuente = int(altura_pantalla - altura_boton)
 
 # El botón, que al final es un rectángulo
-boton = pygame.Rect(0, altura_pantalla - altura_boton, anchura_boton, altura_pantalla)
+boton = pygame.Rect(0, altura_pantalla - altura_boton,
+                    anchura_boton, altura_pantalla)
 
 # Banderas
-ultimos_segundos = None  # Bandera para saber si se debe ocultar la tarjeta dentro de N segundos
+# Bandera para saber si se debe ocultar la tarjeta dentro de N segundos
+ultimos_segundos = None
 puede_jugar = True  # Bandera para saber si reaccionar a los eventos del usuario
-juego_iniciado = False  # Saber si el juego está iniciado; así sabemos si ocultar o mostrar piezas, además del botón
+# Saber si el juego está iniciado; así sabemos si ocultar o mostrar piezas, además del botón
+juego_iniciado = False
 # Banderas de las tarjetas cuando se busca una pareja. Las necesitamos como índices para el arreglo de cuadros
 # x1 con y1 sirven para la primer tarjeta
 x1 = None
@@ -270,10 +300,12 @@ while True:
     if juego_iniciado:
         # Si está iniciado, entonces botón blanco con fuente gris para que parezca deshabilitado
         pygame.draw.rect(pantalla_juego, color_blanco, boton)
-        pantalla_juego.blit(fuente.render("Iniciar juego", True, color_gris), (xFuente, yFuente))
+        pantalla_juego.blit(fuente.render(
+            "Iniciar juego", True, color_gris), (xFuente, yFuente))
     else:
         pygame.draw.rect(pantalla_juego, color_azul, boton)
-        pantalla_juego.blit(fuente.render("Iniciar juego", True, color_blanco), (xFuente, yFuente))
+        pantalla_juego.blit(fuente.render(
+            "Iniciar juego", True, color_blanco), (xFuente, yFuente))
 
     # Actualizamos la pantalla
     pygame.display.update()
