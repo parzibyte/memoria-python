@@ -11,3 +11,7 @@ Mira la explicación del código en mi blog: https://parzibyte.me/blog/2020/12/0
 Muchas gracias a Freesound.org por los sonidos, y a Flaticon por las imágenes.
 Icons made by <a href="https://www.flaticon.com/authors/dinosoftlabs" title="DinosoftLabs">DinosoftLabs</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a>
 
+
+# Más sobre Python
+Te invito a leer mi blog, encontrarás más juegos, software y tutoriales:
+https://parzibyte.me/blog/
